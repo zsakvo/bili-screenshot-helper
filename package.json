@@ -1,6 +1,6 @@
 {
   "name": "bili-screenshot-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bilibili 截图助手",
   "main": "dist/bili-screenshot-helper.user.js",
   "files": [
