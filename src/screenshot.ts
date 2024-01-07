@@ -208,12 +208,12 @@ export class ScreenShot {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.showPannel()
     }
-    document.styleSheets[0].insertRule(
-      ".bpx-screenshot-line::after{content:'';position: absolute;right: 0;bottom: 0;display: block;width: 16px;height: 16px;background: var(--bpx-fn-color,#00a1d6);border-radius: 50% 50% 50% 0;transform: translate(8px,7px) rotate(45deg);transition: background .1s ease;}"
-    )
-    document.styleSheets[0].insertRule(
-      '.pointer-events-visible{pointer-events: visible;}'
-    )
+    const insertCssText =
+      ".bpx-screenshot-line::after{content:'';position: absolute;right: 0;bottom: 0;display: block;width: 16px;height: 16px;background: var(--bpx-fn-color,#00a1d6);border-radius: 50% 50% 50% 0;transform: translate(8px,7px) rotate(45deg);transition: background .1s ease;} .pointer-events-visible{pointer-events: visible;}"
+    const headerEl = document.querySelector('head')
+    if (headerEl) {
+      headerEl.insertAdjacentHTML('beforeend', insertCssText)
+    }
     const bottomLine = document.createElement('div')
     bottomLine.className =
       'bpx-screenshot-line bpx-screenshot-bottom-line pointer-events-visible'
