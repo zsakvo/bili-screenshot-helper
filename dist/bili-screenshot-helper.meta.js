@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        哔哩哔哩视频字幕拼接
-// @description 连续截图并合并，以拼接字幕
+// @description Bilibili 截图助手
 // @namespace   https://zsakvo.cc
 // @run-at      document-end
 // @include     *://www.bilibili.com/video/*
