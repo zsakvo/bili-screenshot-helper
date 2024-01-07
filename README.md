@@ -15,7 +15,7 @@ bili-screenshot-helper 是一个用于增强哔哩哔哩网站的截图功能的
 
 ## 安装
 
-> 需要浏览器装有 Tampermonkey 或 Violentmonkey 插件
+> 需要浏览器装有 Tampermonkey 或 Violentmonkey 插件，或电脑端安装有 AdGuard 应用
 
 点击安装： [bili-screenshot-helper.user.js](https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.user.js)。
 
