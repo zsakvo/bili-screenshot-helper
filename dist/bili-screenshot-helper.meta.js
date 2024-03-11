@@ -5,9 +5,9 @@
 // @run-at      document-end
 // @include     *://www.bilibili.com/video/*
 // @require     https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js
-// @downloadURL https://www.jsdelivr.com/gh/zsakvo/bili-screenshot-helper/dist/bili-screenshot-helper.user.js
-// @updateURL   https://www.jsdelivr.com/gh/zsakvo/bili-screenshot-helper/dist/bili-screenshot-helper.meta.js
-// @version     1.0.0
+// @downloadURL https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.user.js
+// @updateURL   https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.meta.js
+// @version     1.0.1
 // @author      zsakvo
 // @grant       none
 // ==/UserScript==

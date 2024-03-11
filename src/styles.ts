@@ -195,18 +195,27 @@ ${bpxPlayerShotMenuWrap}
   background: #fff;
   padding: 8px 0;
 }
-.bpx-screenshot-top-line{
+.bpx-screenshot-line{
   cursor: row-resize;
   height: 3px;
   background: var(--bpx-fn-color, #00a1d6);
   z-index: 1100;
 }
-.bpx-screenshot-bottom-line{
-  height: 3px;
+.bpx-screenshot-line::after{
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
   background: var(--bpx-fn-color, #00a1d6);
-  cursor: row-resize;
-  z-index: 1100;
-}
+  border-radius: 50% 50% 50% 0;
+  -webkit-transform: translate(8px, 7px) rotate(45deg);
+  transform: translate(8px, 7px) rotate(45deg);
+  transition: background .1s ease;
+} 
+
 .range-selector-btn-cancel{
   width: 62px;
   margin-right: 8px;

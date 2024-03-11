@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        哔哩哔哩视频字幕拼接
-// @description 连续截图并合并，以拼接字幕
+// @description Bilibili 截图助手
 // @namespace   https://zsakvo.cc
 // @run-at      document-end
 // @include     *://www.bilibili.com/video/*
 // @require     https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js
-// @downloadURL https://www.jsdelivr.com/gh/zsakvo/bili-screenshot-helper/dist/bili-screenshot-helper.user.js
-// @updateURL   https://www.jsdelivr.com/gh/zsakvo/bili-screenshot-helper/dist/bili-screenshot-helper.meta.js
-// @version     1.0.0
+// @downloadURL https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.user.js
+// @updateURL   https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.meta.js
+// @version     1.0.1
 // @author      zsakvo
 // @grant       none
 // ==/UserScript==
@@ -205,18 +205,27 @@ ${bpxPlayerShotMenuWrap}
   background: #fff;
   padding: 8px 0;
 }
-.bpx-screenshot-top-line{
+.bpx-screenshot-line{
   cursor: row-resize;
   height: 3px;
   background: var(--bpx-fn-color, #00a1d6);
   z-index: 1100;
 }
-.bpx-screenshot-bottom-line{
-  height: 3px;
+.bpx-screenshot-line::after{
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
   background: var(--bpx-fn-color, #00a1d6);
-  cursor: row-resize;
-  z-index: 1100;
-}
+  border-radius: 50% 50% 50% 0;
+  -webkit-transform: translate(8px, 7px) rotate(45deg);
+  transform: translate(8px, 7px) rotate(45deg);
+  transition: background .1s ease;
+} 
+
 .range-selector-btn-cancel{
   width: 62px;
   margin-right: 8px;
@@ -371,7 +380,7 @@ class ScreenShot {
     attachCanvasDom() {
         const baseHeight = this.video.getBoundingClientRect().height * 2 / 3;
         const screenshotWrapperHeight = document.querySelector('.bpx-player-video-area').getBoundingClientRect().height;
-        const optionbarHeight = document.querySelector('.bpx-player-sending-area').getBoundingClientRect().height;
+        document.querySelector('.bpx-player-sending-area').getBoundingClientRect().height;
         const screenshotWrapper = document.createElement('div');
         screenshotWrapper.className = 'pointer-events-visible range-selector';
         screenshotWrapper.id = 'bpx-screenshot-wrapper';
@@ -425,25 +434,20 @@ class ScreenShot {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.showPannel();
         };
-        const insertCssText = ".bpx-screenshot-line::after{content:'';position: absolute;right: 0;bottom: 0;display: block;width: 16px;height: 16px;background: var(--bpx-fn-color,#00a1d6);border-radius: 50% 50% 50% 0;transform: translate(8px,7px) rotate(45deg);transition: background .1s ease;} .pointer-events-visible{pointer-events: visible;}";
-        const headerEl = document.querySelector('head');
-        if (headerEl) {
-            headerEl.insertAdjacentHTML('beforeend', insertCssText);
-        }
         const bottomLine = document.createElement('div');
-        bottomLine.className = 'bpx-screenshot-line bpx-screenshot-bottom-line pointer-events-visible';
+        bottomLine.className = 'bpx-screenshot-line pointer-events-visible';
         bottomLine.style.position = 'absolute';
         const canvasRect = this.canvas.getBoundingClientRect();
         const videoRect = this.video.getBoundingClientRect();
-        const baseBottomLineHeight = canvasRect.y - videoRect.y + optionbarHeight;
+        const baseBottomLineHeight = canvasRect.y - videoRect.y;
         bottomLine.style.bottom = `${baseBottomLineHeight}px`;
         bottomLine.style.left = `${canvasRect.x - videoRect.x - 12}px`;
         bottomLine.style.width = `${canvasRect.width + 32}px`;
-        document.querySelector('.bpx-player-context-area')?.appendChild(bottomLine);
+        document.querySelector('#bpx-screenshot-wrapper').appendChild(bottomLine);
         const topLine = document.createElement('div');
-        topLine.className = 'bpx-screenshot-line bpx-screenshot-top-line pointer-events-visible';
+        topLine.className = 'bpx-screenshot-line pointer-events-visible';
         topLine.style.position = 'absolute';
-        topLine.style.bottom = `${canvasRect.y - videoRect.y + optionbarHeight + 36}px`;
+        topLine.style.bottom = `${canvasRect.y - videoRect.y + 36}px`;
         topLine.style.left = `${canvasRect.x - videoRect.x - 12}px`;
         topLine.style.width = `${canvasRect.width + 32}px`;
         const cvs = screenshotWrapper.querySelector('canvas');
@@ -482,7 +486,7 @@ class ScreenShot {
                 document.removeEventListener('pointermove', moveEvent);
             });
         });
-        document.querySelector('.bpx-player-context-area')?.appendChild(topLine);
+        document.querySelector('#bpx-screenshot-wrapper').appendChild(topLine);
     }
     catchScreen() {
         const wrapper = document.querySelector('#catch-canvas-wrapper');

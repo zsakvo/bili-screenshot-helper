@@ -208,30 +208,20 @@ export class ScreenShot {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.showPannel()
     }
-    const insertCssText =
-      ".bpx-screenshot-line::after{content:'';position: absolute;right: 0;bottom: 0;display: block;width: 16px;height: 16px;background: var(--bpx-fn-color,#00a1d6);border-radius: 50% 50% 50% 0;transform: translate(8px,7px) rotate(45deg);transition: background .1s ease;} .pointer-events-visible{pointer-events: visible;}"
-    const headerEl = document.querySelector('head')
-    if (headerEl) {
-      headerEl.insertAdjacentHTML('beforeend', insertCssText)
-    }
     const bottomLine = document.createElement('div')
-    bottomLine.className =
-      'bpx-screenshot-line bpx-screenshot-bottom-line pointer-events-visible'
+    bottomLine.className = 'bpx-screenshot-line pointer-events-visible'
     bottomLine.style.position = 'absolute'
     const canvasRect = this.canvas.getBoundingClientRect()
     const videoRect = this.video.getBoundingClientRect()
-    const baseBottomLineHeight = canvasRect.y - videoRect.y + optionbarHeight
+    const baseBottomLineHeight = canvasRect.y - videoRect.y
     bottomLine.style.bottom = `${baseBottomLineHeight}px`
     bottomLine.style.left = `${canvasRect.x - videoRect.x - 12}px`
     bottomLine.style.width = `${canvasRect.width + 32}px`
-    document.querySelector('.bpx-player-context-area')?.appendChild(bottomLine)
+    document.querySelector('#bpx-screenshot-wrapper')!.appendChild(bottomLine)
     const topLine = document.createElement('div')
-    topLine.className =
-      'bpx-screenshot-line bpx-screenshot-top-line pointer-events-visible'
+    topLine.className = 'bpx-screenshot-line pointer-events-visible'
     topLine.style.position = 'absolute'
-    topLine.style.bottom = `${
-      canvasRect.y - videoRect.y + optionbarHeight + 36
-    }px`
+    topLine.style.bottom = `${canvasRect.y - videoRect.y + 36}px`
     topLine.style.left = `${canvasRect.x - videoRect.x - 12}px`
     topLine.style.width = `${canvasRect.width + 32}px`
     const cvs = screenshotWrapper.querySelector('canvas')!
@@ -278,7 +268,7 @@ export class ScreenShot {
         document.removeEventListener('pointermove', moveEvent)
       })
     })
-    document.querySelector('.bpx-player-context-area')?.appendChild(topLine)
+    document.querySelector('#bpx-screenshot-wrapper')!.appendChild(topLine)
   }
 
   private catchScreen() {
