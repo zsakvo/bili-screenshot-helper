@@ -4,7 +4,10 @@
   "grant": ["none"],
   "run-at": "document-end",
   "include": ["*://www.bilibili.com/video/*"],
-  "require": ["https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"],
+  "require": [
+    "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js",
+    "src/lib/gif/gif.worker.js"
+  ],
   "downloadURL": "https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.user.js",
   "updateURL": "https://unpkg.com/bili-screenshot-helper/dist/bili-screenshot-helper.meta.js"
 }

@@ -1,3 +1,4 @@
+import { GifShot } from './gif'
 import { ScreenShot } from './screenshot'
 
 const settingBox = document.createElement('div')
@@ -11,10 +12,13 @@ style="width: 50px"
 <div class="bpx-player-screen-shot-result">截图</div>
 <div class="bpx-player-screen-shot-menu-wrap"  id="screen-shot-menu-wrap"><ul class="bpx-player-screen-shot-menu">
   <li class="bpx-player-screen-shot-menu-item" onclick="shotCurrent()">
-  <span class="bpx-player-screen-shot-text">截取当前</span>
+    <span class="bpx-player-screen-shot-text">截取当前</span>
   </li>
   <li class="bpx-player-screen-shot-menu-item" onclick="shotLong()">
     <span class="bpx-player-screen-shot-text">连续截屏</span>
+  </li>
+  <li class="bpx-player-screen-shot-menu-item" onclick="shotGif()">
+    <span class="bpx-player-screen-shot-text">GIF 录制</span>
   </li>
 </ul></div>
 </div>
@@ -54,6 +58,7 @@ function observeVideoSize() {
 
 function shotGif() {
   console.log('gif')
+  const gif = new GifShot(document.querySelector('video')!)
 }
 
 function shotSettins() {

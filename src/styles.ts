@@ -244,6 +244,74 @@ ${bpxPlayerShotMenuWrap}
   border-radius: 4px;
   cursor: pointer;
 }
+
+.poc-input {
+  position: relative;
+  color: rgb(8, 8, 8);
+  width: initial;
+  height: 2.05em;
+  padding: 0.45em 0.75em;
+  border-radius: 4px;
+  border: 1px solid rgb(210, 210, 210);
+  transition:
+    box-shadow 200ms linear,
+    border-color 200ms linear,
+    background-color 200ms linear;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  min-width: 0;
+  font-size: 0.9375rem;
+}
+
+.poc-input:hover,
+.poc-input:focus-within {
+  outline: none;
+}
+
+.poc-input:hover:not([disabled]),
+.poc-input:focus:not([disabled]) {
+  border-color: rgb(85, 85, 85);
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  background-color: rgba(250, 250, 250, 0.5);
+}
+
+.poc-input:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+
+.poc-label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin-bottom: 0.25em;
+}
+
+.poc-label .poc-input {
+  margin: 0 1em;
+}
+
+#gif-settings-wrapper{
+  padding-top: 24px;
+}
+
+.gif-input-wrapper{
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.gif-input-label{
+  margin-left: 16px;
+
+}
+
 </style>`
 export function injectHeader() {
   const headerEl = document.querySelector('head')
