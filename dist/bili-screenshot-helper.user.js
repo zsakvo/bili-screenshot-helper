@@ -1001,7 +1001,8 @@ class GifShot {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
             this.gif.addFrame(this.ctx, {
-                copy: true
+                copy: true,
+                delay: this.interval
             });
         });
         _define_property$1(this, "destory", ()=>{

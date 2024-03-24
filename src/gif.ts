@@ -113,6 +113,7 @@ export class GifShot {
     this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height)
     this.gif.addFrame(this.ctx, {
       copy: true,
+      delay: this.interval,
     })
   }
 
