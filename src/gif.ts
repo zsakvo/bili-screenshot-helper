@@ -18,7 +18,7 @@ export class GifShot {
     this.canvas = document.createElement('canvas')
     this.canvas.width = this.video.videoWidth
     this.canvas.height = this.video.videoHeight
-    this.ctx = this.canvas.getContext('2d')!
+    this.ctx = this.canvas.getContext('2d', { willReadFrequently: true })!
     this.showPannel()
   }
 
@@ -75,12 +75,17 @@ export class GifShot {
       (document.getElementById('shot-scale') as HTMLInputElement).value
     )
 
+    this.scale = this.scale > 1 ? 1 : this.scale
+
+    this.canvas.width = this.video.videoWidth * this.scale
+    this.canvas.height = this.video.videoHeight * this.scale
+
     // @ts-ignore
     this.gif = new GIF({
       workers: 4,
       workerScript: getGifWorkerURL(),
-      width: this.video.videoWidth,
-      height: this.video.videoHeight,
+      width: this.video.videoWidth * this.scale,
+      height: this.video.videoHeight * this.scale,
     })
 
     this.gif.on('start', () => (this.startTime = Date.now()))
@@ -95,7 +100,7 @@ export class GifShot {
       btn.disabled = false
     })
 
-    this.timer = setInterval(this.capture, this.interval)
+    this.timer = setInterval(this.catchFrame, this.interval)
   }
 
   stop = () => {
@@ -103,8 +108,10 @@ export class GifShot {
     this.gif.render()
   }
 
-  capture = () => {
-    this.gif.addFrame(this.video, {
+  catchFrame = () => {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height)
+    this.gif.addFrame(this.ctx, {
       copy: true,
     })
   }

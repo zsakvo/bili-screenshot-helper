@@ -970,12 +970,15 @@ class GifShot {
         _define_property$1(this, "begin", ()=>{
             this.interval = Number(document.getElementById('shot-interval').value);
             this.scale = Number(document.getElementById('shot-scale').value);
+            this.scale = this.scale > 1 ? 1 : this.scale;
+            this.canvas.width = this.video.videoWidth * this.scale;
+            this.canvas.height = this.video.videoHeight * this.scale;
             // @ts-ignore
             this.gif = new GIF({
                 workers: 4,
                 workerScript: getGifWorkerURL(),
-                width: this.video.videoWidth,
-                height: this.video.videoHeight
+                width: this.video.videoWidth * this.scale,
+                height: this.video.videoHeight * this.scale
             });
             this.gif.on('start', ()=>this.startTime = Date.now());
             this.gif.on('finished', (blob)=>{
@@ -988,14 +991,16 @@ class GifShot {
                 btn.innerText = '开始';
                 btn.disabled = false;
             });
-            this.timer = setInterval(this.capture, this.interval);
+            this.timer = setInterval(this.catchFrame, this.interval);
         });
         _define_property$1(this, "stop", ()=>{
             clearInterval(this.timer);
             this.gif.render();
         });
-        _define_property$1(this, "capture", ()=>{
-            this.gif.addFrame(this.video, {
+        _define_property$1(this, "catchFrame", ()=>{
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+            this.gif.addFrame(this.ctx, {
                 copy: true
             });
         });
@@ -1008,7 +1013,9 @@ class GifShot {
         this.canvas = document.createElement('canvas');
         this.canvas.width = this.video.videoWidth;
         this.canvas.height = this.video.videoHeight;
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        });
         this.showPannel();
     }
 }const arrowUp = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9999 10.8284L7.0502 15.7782L5.63599 14.364L11.9999 8L18.3639 14.364L16.9497 15.7782L11.9999 10.8284Z"></path></svg>`;
